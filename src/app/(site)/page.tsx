@@ -32,15 +32,18 @@ export default async function Home(){
   ])
 
   return <>
-    <Hero settings={s} work={work.docs}/>
+    <Hero settings={s} work={work.docs} />
+    <ClientStrip clients={clients} />
 
-    <ClientStrip clients={clients}/>
+    <section className="section">
+    <div className="container">
+        <WorkGrid work={work.docs} featured />
+    </div>
+    </section>
 
-    <WorkGrid work={work.docs} featured/>
+    <ProcessSection />
 
-    <ProcessSection/>
 
-    <TestimonialPreview testimonials={testimonials}/>
 
     <FAQSection faqs={faqs}/>
 

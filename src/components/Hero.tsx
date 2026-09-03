@@ -37,7 +37,7 @@ export function Hero({ settings: s, work }: HeroProps) {
             <div className="flex flex-wrap gap-3 mt-8">
               <Link
                 href="/#apply"
-                className="rounded-full bg-[var(--ink)] text-white px-6 py-3 font-semibold"
+                className="rounded-full bg-[var(--ink)] !text-white px-6 py-3 font-semibold"
               >
                 {s.primaryCtaText}
               </Link>
@@ -99,7 +99,7 @@ export function Hero({ settings: s, work }: HeroProps) {
               </span>
 
               <p className="display text-4xl md:text-7xl mt-4 leading-[.95]">
-                Ideas, packaged to stop the scroll.
+                Stop. Click. Watch.
               </p>
             </div>
           </div>
