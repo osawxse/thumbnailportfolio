@@ -6,3 +6,4 @@
 .reveal{animation:rise .7s cubic-bezier(.2,.8,.2,1) both}.delay-1{animation-delay:.08s}.delay-2{animation-delay:.16s}.delay-3{animation-delay:.24s}@keyframes rise{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
 @media(max-width:768px){.container{width:min(100% - 32px,1240px)}.section{padding-block:76px}.display{letter-spacing:-.045em}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.reveal{animation:none}}
+
