@@ -1,0 +1,4 @@
+import Link from 'next/link'
+import type { Testimonial } from '@/lib/cms'
+import { TestimonialCard } from './TestimonialCard'
+export function TestimonialPreview({testimonials}:{testimonials:Testimonial[]}){return <section className="section"><div className="container"><div className="flex items-end justify-between gap-6"><div><p className="mono mb-4">Client notes</p><h2 className="display text-5xl md:text-7xl">Good work gets remembered.</h2></div><Link href="/testimonials" className="hidden sm:block border border-black rounded-full px-5 py-3 text-sm">Read all</Link></div><div className="grid lg:grid-cols-3 gap-5 mt-12">{testimonials.slice(0,3).map(x=><TestimonialCard key={x.id} item={x}/>)}</div><div className="sm:hidden mt-8"><Link href="/testimonials" className="border border-black rounded-full px-5 py-3 text-sm">Read all</Link></div></div></section>}

@@ -1,0 +1,3 @@
+import Link from 'next/link'
+import type { SiteSettings } from '@/lib/cms'
+export function Footer({settings:s}:{settings:SiteSettings}){return <footer className="border-t border-[var(--line)]"><div className="container py-12 flex flex-col md:flex-row justify-between gap-5"><div><p className="display font-bold text-xl">{s.siteName.split(' — ')[0]}</p><p className="text-sm text-[var(--muted)] mt-2">{s.footerText}</p></div><div className="flex flex-wrap gap-5 text-sm"><Link href="/gallery">Gallery</Link><Link href="/testimonials">Testimonials</Link><Link href="/#apply">Apply</Link>{s.socialLinks?.map(x=><a key={x.id||x.label} href={x.url} target="_blank" rel="noreferrer">{x.label}</a>)}</div></div></footer>}

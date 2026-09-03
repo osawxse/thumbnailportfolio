@@ -1,0 +1,16 @@
+import path from 'path'
+import { fileURLToPath } from 'url'
+import sharp from 'sharp'
+import { buildConfig } from 'payload'
+import { sqliteAdapter } from '@payloadcms/db-sqlite'
+import { lexicalEditor } from '@payloadcms/richtext-lexical'
+import { Users } from './src/collections/Users'
+import { Media } from './src/collections/Media'
+import { Work } from './src/collections/Work'
+import { Testimonials } from './src/collections/Testimonials'
+import { FAQs } from './src/collections/FAQs'
+import { Applications } from './src/collections/Applications'
+import { Clients } from './src/collections/Clients'
+import { SiteSettings } from './src/collections/SiteSettings'
+const filename=fileURLToPath(import.meta.url); const dirname=path.dirname(filename)
+export default buildConfig({ admin:{user:'users',importMap:{baseDir:path.resolve(dirname,'src/app/(payload)')}}, collections:[Users,Media,Work,Testimonials,FAQs,Applications,Clients], globals:[SiteSettings], editor:lexicalEditor(), secret:process.env.PAYLOAD_SECRET||'dev-only-change-me', db:sqliteAdapter({client:{url:process.env.DATABASE_URL||'file:./data/portfolio.db'}}), sharp, typescript:{outputFile:path.resolve(dirname,'src/payload-types.ts')}, upload:{limits:{fileSize:10000000}} })

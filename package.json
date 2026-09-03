@@ -1,0 +1,46 @@
+{
+  "name": "thumbnail-designer-portfolio",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "next dev --turbo",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "typecheck": "tsc --noEmit",
+    "seed": "tsx src/lib/seed.ts",
+    "generate:types": "payload generate:types",
+    "generate:importmap": "payload generate:importmap"
+  },
+  "dependencies": {
+    "@payloadcms/db-sqlite": "3.88.0",
+    "@payloadcms/next": "3.88.0",
+    "@payloadcms/richtext-lexical": "3.88.0",
+    "@radix-ui/react-accordion": "^1.2.12",
+    "@radix-ui/react-slot": "^1.2.4",
+    "clsx": "^2.1.1",
+    "dotenv": "^17.2.1",
+    "motion": "^12.23.12",
+    "next": "15.4.11",
+    "payload": "3.88.0",
+    "react": "19.1.1",
+    "react-dom": "19.1.1",
+    "resend": "^6.1.0",
+    "sharp": "^0.34.3",
+    "tailwind-merge": "^3.3.1",
+    "zod": "^4.1.5"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "^4.3.3",
+    "@types/node": "^22.15.30",
+    "@types/react": "^19.1.10",
+    "@types/react-dom": "^19.1.7",
+    "tailwindcss": "^4.1.12",
+    "tsx": "^4.20.5",
+    "typescript": "^5.9.2"
+  },
+  "engines": {
+    "node": ">=20.9.0"
+  }
+}

@@ -1,0 +1,2 @@
+import type { CollectionConfig } from 'payload'
+export const FAQs: CollectionConfig = { slug:'faqs', admin:{useAsTitle:'question',defaultColumns:['question','published','sortOrder']}, access:{read:()=>true,create:({req})=>Boolean(req.user),update:({req})=>Boolean(req.user),delete:({req})=>Boolean(req.user)}, fields:[{name:'question',type:'text',required:true},{name:'answer',type:'textarea',required:true},{name:'published',type:'checkbox',defaultValue:true},{name:'sortOrder',type:'number',defaultValue:0}] }

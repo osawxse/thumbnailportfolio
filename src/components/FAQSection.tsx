@@ -1,0 +1,4 @@
+'use client'
+import * as Accordion from '@radix-ui/react-accordion'
+import type { FAQ } from '@/lib/cms'
+export function FAQSection({faqs}:{faqs:FAQ[]}){return <section className="section border-t border-[var(--line)]"><div className="container grid lg:grid-cols-[.7fr_1.3fr] gap-14"><div><p className="mono mb-4">FAQ</p><h2 className="display text-5xl md:text-6xl">Before we start.</h2></div><Accordion.Root type="single" collapsible>{faqs.map(x=><Accordion.Item key={x.id} value={x.id} className="border-t border-[var(--line)]"><Accordion.Header><Accordion.Trigger className="w-full py-6 text-left flex justify-between gap-6 font-semibold"><span>{x.question}</span><span aria-hidden>+</span></Accordion.Trigger></Accordion.Header><Accordion.Content className="pb-6 text-[var(--muted)] leading-6">{x.answer}</Accordion.Content></Accordion.Item>)}</Accordion.Root></div></section>}
