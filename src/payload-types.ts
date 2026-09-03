@@ -578,6 +578,10 @@ export interface SiteSetting {
   id: number;
   siteName?: string | null;
   logo?: (number | null) | Media;
+  /**
+   * The 1920×1080 collage displayed in the homepage hero.
+   */
+  heroImage?: (number | null) | Media;
   heroHeading?: string | null;
   heroDescription?: string | null;
   availabilityLabel?: string | null;
@@ -602,6 +606,7 @@ export interface SiteSetting {
 export interface SiteSettingsSelect<T extends boolean = true> {
   siteName?: T;
   logo?: T;
+  heroImage?: T;
   heroHeading?: T;
   heroDescription?: T;
   availabilityLabel?: T;
