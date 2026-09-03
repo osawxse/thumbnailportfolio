@@ -11,6 +11,8 @@ import {
 
 import React from 'react'
 
+// Payload generates this file as JavaScript without TypeScript declarations.
+// @ts-expect-error Generated Payload import map has no declaration file.
 import { importMap } from './admin/importMap.js'
 
 import './custom.css'

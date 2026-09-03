@@ -5,14 +5,258 @@ import sharp from 'sharp'
 import { getPayload } from 'payload'
 import config from '../../payload.config.js'
 
-const mediaDir=path.resolve(process.cwd(),'public/media'); fs.mkdirSync(mediaDir,{recursive:true})
-const colors=['#D8FF45','#FF6B5F','#B8A7FF','#77D7FF','#FFD36A','#F1A7D9','#8BE28B','#D7D0C2']
-async function makePng(i:number){const file=path.join(mediaDir,`demo-${i}.png`);const svg=`<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720"><rect width="1280" height="720" fill="#11110f"/><rect x="50" y="50" width="1180" height="620" rx="30" fill="${colors[i%colors.length]}"/><text x="90" y="180" font-family="Arial" font-size="54" font-weight="700" fill="#11110f">DEMO THUMBNAIL</text><text x="90" y="280" font-family="Arial" font-size="92" font-weight="700" fill="#11110f">PROJECT {String(i+1).padStart(2,'0')}</text><text x="90" y="610" font-family="Arial" font-size="28" fill="#11110f">PLACEHOLDER — REPLACE IN ADMIN</text></svg>`;await sharp(Buffer.from(svg)).png().toFile(file);return file}
-async function main(){const payload=await getPayload({config});const existing=await payload.find({collection:'work',limit:1});if(existing.totalDocs>0){console.log('Seed skipped: Work collection already contains content.');process.exit(0)}
-for(let i=0;i<8;i++){const file=await makePng(i);const media=await payload.create({collection:'media',data:{alt:`Demo thumbnail ${i+1}`},file:{path:file,filename:path.basename(file),mimeType:'image/png',filesize:fs.statSync(file).size}});await payload.create({collection:'work',data:{title:`Demo thumbnail concept ${i+1}`,slug:`demo-thumbnail-${i+1}`,thumbnail:media.id,channelName:'Demo Channel',views:'1.2M views',publishedLabel:'3 months ago',description:'Placeholder portfolio entry — replace with a real project.',category:['Challenges','Documentary','Business','Entertainment'][i%4],featured:i<8,published:true,sortOrder:i,altText:`Demo thumbnail ${i+1}`}})}
-const testimonials=[['Demo Client 01','Creator','Demo Channel','250K subscribers'],['Demo Client 02','Producer','Demo Studio','1.1M subscribers'],['Demo Client 03','Channel Owner','Demo Channel','800K subscribers'],['Demo Client 04','Creative Director','Demo Brand','Brand account'],['Demo Client 05','Creator','Demo Channel','75K subscribers']];for(let i=0;i<testimonials.length;i++)await payload.create({collection:'testimonials',data:{clientName:testimonials[i][0],clientRole:testimonials[i][1],companyOrChannel:testimonials[i][2],subscriberCount:testimonials[i][3],quote:'PLACEHOLDER TESTIMONIAL — replace this with verified client feedback before launch.',featured:i<3,published:true,sortOrder:i}})
-const faqs=[['What do you need from me to create a thumbnail?','Usually the video context, title or idea, relevant assets, and any references you already have.'],['How long does a thumbnail project take?','Turnaround depends on scope and queue. A typical single thumbnail is handled within an agreed project window.'],['How does your process work?','We start with the idea and packaging problem, develop concepts, then refine the selected direction into the final design.'],['Do you offer revisions?','Yes. Revision rounds and their scope are agreed before work begins.'],['Do you offer A/B testing variants?','Variants can be produced when the project scope calls for testing multiple packaging directions.'],['Do you work with creators, brands, or both?','Both. The portfolio and application form are designed to support creators, teams, agencies and brands.']];for(let i=0;i<faqs.length;i++)await payload.create({collection:'faqs',data:{question:faqs[i][0],answer:faqs[i][1],published:true,sortOrder:i}})
-for(let i=0;i<5;i++)await payload.create({collection:'clients',data:{name:`Demo Client ${i+1}`,metric:i%2?'1M+ subscribers':'Selected project',featured:true,published:true,sortOrder:i}})
-await payload.updateGlobal({slug:'site-settings',data:{siteName:'[YOUR NAME] — Thumbnail Designer',heroHeading:'I turn strong YouTube ideas into thumbnails people need to click.',heroDescription:'Strategic thumbnail design for creators and brands who want their videos packaged with more clarity, curiosity and intent.',availabilityLabel:'Available for selected projects',primaryCtaText:'Work With Me',secondaryCtaText:'View My Work',emailAddress:'hello@example.com',footerText:'Independent thumbnail designer · Available worldwide'}})
-console.log('Seed complete. Demo content is explicitly placeholder content.')}
-main().catch(e=>{console.error(e);process.exit(1)})
+const mediaDir = path.resolve(process.cwd(), 'public/media')
+
+fs.mkdirSync(mediaDir, { recursive: true })
+
+const colors = [
+  '#D8FF45',
+  '#FF6B5F',
+  '#B8A7FF',
+  '#77D7FF',
+  '#FFD36A',
+  '#F1A7D9',
+  '#8BE28B',
+  '#D7D0C2',
+]
+
+async function makePng(i: number) {
+  const file = path.join(mediaDir, `demo-${i}.png`)
+
+  const svg = `
+    <svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720">
+      <rect width="1280" height="720" fill="#11110f"/>
+      <rect
+        x="50"
+        y="50"
+        width="1180"
+        height="620"
+        rx="30"
+        fill="${colors[i % colors.length]}"
+      />
+      <text
+        x="90"
+        y="180"
+        font-family="Arial"
+        font-size="54"
+        font-weight="700"
+        fill="#11110f"
+      >
+        DEMO THUMBNAIL
+      </text>
+      <text
+        x="90"
+        y="280"
+        font-family="Arial"
+        font-size="92"
+        font-weight="700"
+        fill="#11110f"
+      >
+        PROJECT ${String(i + 1).padStart(2, '0')}
+      </text>
+      <text
+        x="90"
+        y="610"
+        font-family="Arial"
+        font-size="28"
+        fill="#11110f"
+      >
+        PLACEHOLDER — REPLACE IN ADMIN
+      </text>
+    </svg>
+  `
+
+  await sharp(Buffer.from(svg))
+    .png()
+    .toFile(file)
+
+  return file
+}
+
+async function main() {
+  const payload = await getPayload({ config })
+
+  const existing = await payload.find({
+    collection: 'work',
+    limit: 1,
+  })
+
+  if (existing.totalDocs > 0) {
+    console.log(
+      'Seed skipped: Work collection already contains content.'
+    )
+    process.exit(0)
+  }
+
+  for (let i = 0; i < 8; i++) {
+    const file = await makePng(i)
+
+    const media = await payload.create({
+      collection: 'media',
+      data: {
+        alt: `Demo thumbnail ${i + 1}`,
+      },
+      file: {
+        name: path.basename(file),
+        data: fs.readFileSync(file),
+        mimetype: 'image/png',
+        size: fs.statSync(file).size,
+      },
+    })
+
+    await payload.create({
+      collection: 'work',
+      data: {
+        title: `Demo thumbnail concept ${i + 1}`,
+        slug: `demo-thumbnail-${i + 1}`,
+        thumbnail: media.id,
+        channelName: 'Demo Channel',
+        views: '1.2M views',
+        publishedLabel: '3 months ago',
+        description:
+          'Placeholder portfolio entry — replace with a real project.',
+        category: [
+          'Challenges',
+          'Documentary',
+          'Business',
+          'Entertainment',
+        ][i % 4],
+        featured: i < 8,
+        published: true,
+        sortOrder: i,
+        altText: `Demo thumbnail ${i + 1}`,
+      },
+    })
+  }
+
+  const testimonials = [
+    [
+      'Demo Client 01',
+      'Creator',
+      'Demo Channel',
+      '250K subscribers',
+    ],
+    [
+      'Demo Client 02',
+      'Producer',
+      'Demo Studio',
+      '1.1M subscribers',
+    ],
+    [
+      'Demo Client 03',
+      'Channel Owner',
+      'Demo Channel',
+      '800K subscribers',
+    ],
+    [
+      'Demo Client 04',
+      'Creative Director',
+      'Demo Brand',
+      'Brand account',
+    ],
+    [
+      'Demo Client 05',
+      'Creator',
+      'Demo Channel',
+      '75K subscribers',
+    ],
+  ]
+
+  for (let i = 0; i < testimonials.length; i++) {
+    await payload.create({
+      collection: 'testimonials',
+      data: {
+        clientName: testimonials[i][0],
+        clientRole: testimonials[i][1],
+        companyOrChannel: testimonials[i][2],
+        subscriberCount: testimonials[i][3],
+        quote:
+          'PLACEHOLDER TESTIMONIAL — replace this with verified client feedback before launch.',
+        featured: i < 3,
+        published: true,
+        sortOrder: i,
+      },
+    })
+  }
+
+  const faqs = [
+    [
+      'What do you need from me to create a thumbnail?',
+      'Usually the video context, title or idea, relevant assets, and any references you already have.',
+    ],
+    [
+      'How long does a thumbnail project take?',
+      'Turnaround depends on scope and queue. A typical single thumbnail is handled within an agreed project window.',
+    ],
+    [
+      'How does your process work?',
+      'We start with the idea and packaging problem, develop concepts, then refine the selected direction into the final design.',
+    ],
+    [
+      'Do you offer revisions?',
+      'Yes. Revision rounds and their scope are agreed before work begins.',
+    ],
+    [
+      'Do you offer A/B testing variants?',
+      'Variants can be produced when the project scope calls for testing multiple packaging directions.',
+    ],
+    [
+      'Do you work with creators, brands, or both?',
+      'Both. The portfolio and application form are designed to support creators, teams, agencies and brands.',
+    ],
+  ]
+
+  for (let i = 0; i < faqs.length; i++) {
+    await payload.create({
+      collection: 'faqs',
+      data: {
+        question: faqs[i][0],
+        answer: faqs[i][1],
+        published: true,
+        sortOrder: i,
+      },
+    })
+  }
+
+  for (let i = 0; i < 5; i++) {
+    await payload.create({
+      collection: 'clients',
+      data: {
+        name: `Demo Client ${i + 1}`,
+        metric: i % 2
+          ? '1M+ subscribers'
+          : 'Selected project',
+        featured: true,
+        published: true,
+        sortOrder: i,
+      },
+    })
+  }
+
+  await payload.updateGlobal({
+    slug: 'site-settings',
+    data: {
+      siteName: '[YOUR NAME] — Thumbnail Designer',
+      heroHeading:
+        'I turn strong YouTube ideas into thumbnails people need to click.',
+      heroDescription:
+        'Strategic thumbnail design for creators and brands who want their videos packaged with more clarity, curiosity and intent.',
+      availabilityLabel:
+        'Available for selected projects',
+      primaryCtaText: 'Work With Me',
+      secondaryCtaText: 'View My Work',
+      emailAddress: 'hello@example.com',
+      footerText:
+        'Independent thumbnail designer · Available worldwide',
+    },
+  })
+
+  console.log(
+    'Seed complete. Demo content is explicitly placeholder content.'
+  )
+}
+
+main().catch((e) => {
+  console.error(e)
+  process.exit(1)
+})

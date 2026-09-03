@@ -32,7 +32,7 @@ export default async function Home(){
   ])
 
   return <>
-    <Hero settings={s} work={work.docs} />
+    <Hero settings={s} />
     <ClientStrip clients={clients} />
 
     <section className="section">
