@@ -50,12 +50,11 @@ export default async function Home(){
     <section id="apply" className="section">
       <div className="container">
         <div className="rule pt-8">
-          <p className="mono mb-6">Start a project</p>
           <h2 className="display text-5xl md:text-7xl max-w-4xl">
-            Have a video worth packaging properly?
+            Working with me is easy!
           </h2>
           <p className="mt-6 max-w-xl text-lg text-[var(--muted)]">
-            Tell me what you are building, where the bottleneck is, and what you want the packaging to do.
+            Reach out by filling out the form below. A bunch of sections are optional and do not need to be filled. Be as descriptive as possible.
           </p>
           <div className="mt-12">
             <ApplicationForm/>

@@ -1,26 +1,224 @@
+/* Load the three fonts used throughout the site:
+   DM Mono = labels / technical text
+   DM Sans = regular body text
+   Space Grotesk = large display headings */
 @import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap');
-@import 'tailwindcss';
-:root{--paper:#f5f4ef;--ink:#11110f;--muted:#6e6c66;--line:#d9d7d0;--accent:#d8ff45;--radius:18px}
-*{box-sizing:border-box} html{scroll-behavior:smooth} body{margin:0;background:var(--paper);color:var(--ink);font-family:'DM Sans',sans-serif} ::selection{background:var(--accent);color:var(--ink)} a{color:inherit;text-decoration:none} button,input,textarea,select{font:inherit}
-.display{font-family:'Space Grotesk',sans-serif;letter-spacing:-.055em}.mono{font-family:'DM Mono',monospace;text-transform:uppercase;letter-spacing:.09em;font-size:11px}.container{width:min(1240px,calc(100% - 48px));margin-inline:auto}.section{padding-block:120px}.rule{border-top:1px solid var(--line)}
-.reveal{animation:rise .7s cubic-bezier(.2,.8,.2,1) both}.delay-1{animation-delay:.08s}.delay-2{animation-delay:.16s}.delay-3{animation-delay:.24s}@keyframes rise{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
-@media(max-width:768px){.container{width:min(100% - 32px,1240px)}.section{padding-block:76px}.display{letter-spacing:-.045em}}
-@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.reveal{animation:none}}
 
+/* Load Tailwind CSS utilities */
+@import 'tailwindcss';
+
+
+/* =========================================================
+   GLOBAL DESIGN TOKENS
+   ========================================================= */
+
+/* Central color and sizing variables used across the site */
+:root {
+  --paper: #f5f4ef;   /* Main warm/off-white page background */
+  --ink: #11110f;     /* Main text and dark UI color */
+  --muted: #6e6c66;   /* Secondary/subdued text */
+  --line: #d9d7d0;    /* Borders and horizontal rules */
+  --accent: #d8ff45;  /* Lime accent used for selections/highlights */
+  --radius: 18px;     /* Standard rounded-corner radius */
+}
+
+
+/* =========================================================
+   BASE ELEMENTS
+   ========================================================= */
+
+/* Make width/height calculations include padding and borders */
+* {
+  box-sizing: border-box;
+}
+
+/* Enable smooth scrolling when navigating to page sections */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Global page appearance and default typography */
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: 'DM Sans', sans-serif;
+}
+
+/* Style text when the user highlights/selects it */
+::selection {
+  background: var(--accent);
+  color: var(--ink);
+}
+
+/* Keep links using the site's normal text color and remove underlines */
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* Make form controls inherit the site's typography */
+button,
+input,
+textarea,
+select {
+  font: inherit;
+}
+
+
+/* =========================================================
+   TYPOGRAPHY
+   ========================================================= */
+
+/* Large display headings use Space Grotesk.
+   Negative letter spacing gives the headings a tighter,
+   modern editorial appearance. */
+.display {
+  font-family: 'Space Grotesk', sans-serif;
+  letter-spacing: -0.055em;
+}
+
+/* Small technical/label text uses DM Mono.
+   Uppercase + letter spacing creates the compact metadata style. */
+.mono {
+  font-family: 'DM Mono', monospace;
+  text-transform: uppercase;
+  letter-spacing: 0.09em;
+  font-size: 11px;
+}
+
+
+/* =========================================================
+   LAYOUT
+   ========================================================= */
+
+/* Main content container.
+   Maximum width is 1240px while keeping 24px of horizontal
+   space on smaller desktop screens. */
+.container {
+  width: min(1240px, calc(100% - 48px));
+  margin-inline: auto;
+}
+
+/* Standard vertical spacing between major sections.
+   Reduced from 120px to 72px to make the site more compact
+   and eliminate excessive white space. */
+.section {
+  padding-block: 72px;
+}
+
+/* Creates the thin horizontal divider used throughout the site */
+.rule {
+  border-top: 1px solid var(--line);
+}
+
+
+/* =========================================================
+   REVEAL ANIMATION
+   ========================================================= */
+
+/* Default entrance animation for elements using .reveal */
+.reveal {
+  animation: rise 0.7s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+
+/* Staggered animation delays for multiple elements */
+.delay-1 {
+  animation-delay: 0.08s;
+}
+
+.delay-2 {
+  animation-delay: 0.16s;
+}
+
+.delay-3 {
+  animation-delay: 0.24s;
+}
+
+/* Moves elements slightly upward while fading them in */
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+
+/* =========================================================
+   TABLET / MOBILE LAYOUT
+   ========================================================= */
+
+@media (max-width: 768px) {
+  /* Reduce the horizontal margins on smaller screens */
+  .container {
+    width: min(100% - 32px, 1240px);
+  }
+
+  /* Tighter section spacing on mobile.
+     56px keeps the page compact without making sections feel cramped. */
+  .section {
+    padding-block: 56px;
+  }
+
+  /* Slightly reduce heading letter spacing on smaller screens
+     so large headings don't become unnecessarily compressed. */
+  .display {
+    letter-spacing: -0.045em;
+  }
+}
+
+
+/* =========================================================
+   REDUCED MOTION ACCESSIBILITY
+   ========================================================= */
+
+/* Disable smooth scrolling and reveal animations for users
+   who have requested reduced motion in their OS/browser. */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .reveal {
+    animation: none;
+  }
+}
+
+
+/* =========================================================
+   CLIENT MARQUEE
+   ========================================================= */
+
+/* Keeps the scrolling client strip inside its container
+   and hides content that moves outside the visible area. */
 .client-marquee {
   width: 100%;
   overflow: hidden;
   position: relative;
 }
 
+/* Places all client items on one horizontal line.
+   width: max-content allows the track to extend beyond the screen
+   so the marquee can continuously scroll. */
 .client-marquee-track {
   display: flex;
   align-items: center;
   width: max-content;
+
+  /* Horizontal distance between client entries */
   gap: 56px;
+
+  /* Continuously scroll the client list */
   animation: clientMarquee 30s linear infinite;
 }
 
+/* Keeps each client logo/name combination together
+   and prevents individual items from shrinking. */
 .client-marquee-item {
   display: flex;
   align-items: center;
@@ -28,6 +226,13 @@
   flex-shrink: 0;
 }
 
+
+/* =========================================================
+   CLIENT MARQUEE ANIMATION
+   ========================================================= */
+
+/* Moves the duplicated client list from its starting position
+   to halfway across the track, creating the continuous loop. */
 @keyframes clientMarquee {
   from {
     transform: translateX(0);
@@ -38,15 +243,25 @@
   }
 }
 
+
+/* Disable the client marquee for users who prefer reduced motion */
 @media (prefers-reduced-motion: reduce) {
   .client-marquee-track {
     animation: none;
   }
 }
 
+
+/* =========================================================
+   MOBILE CLIENT MARQUEE
+   ========================================================= */
+
 @media (max-width: 768px) {
+  /* Reduce the gap between clients on smaller screens */
   .client-marquee-track {
     gap: 36px;
+
+    /* Make the mobile animation slightly faster */
     animation-duration: 24s;
   }
 }

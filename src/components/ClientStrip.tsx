@@ -8,7 +8,7 @@ export function ClientStrip({ clients }: { clients: Client[] }) {
   const marqueeClients = [...visibleClients, ...visibleClients]
 
   return (
-    <section className="pb-16">
+    <section className="pb-10">
       <div className="container">
 
         {/* Section heading */}
