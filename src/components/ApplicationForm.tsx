@@ -47,6 +47,19 @@ const schema = z.object({
 type Form = Record<string, string>
 type Errors = Record<string, string>
 
+/* =========================================================
+   GOOGLE ANALYTICS EVENT
+   =========================================================
+   Google Analytics is loaded globally in the root layout.
+   This type lets TypeScript know that the Google Analytics
+   gtag function may exist on the browser window.
+*/
+declare global {
+  interface Window {
+    gtag?: (...args: unknown[]) => void
+  }
+}
+
 const fields = [
   ['fullName', 'Full name', 'text'],
   ['email', 'Email', 'email'],
@@ -146,6 +159,20 @@ export function ApplicationForm() {
       if (!response.ok) {
         throw new Error(data.error || 'Submission failed')
       }
+
+/* =========================================================
+   TRACK SUCCESSFUL APPLICATION
+   =========================================================
+   This fires ONLY after the server confirms that the
+   application was successfully submitted.
+
+   It will appear in Google Analytics as the custom event:
+   "application_submitted"
+*/
+      window.gtag?.('event', 'application_submitted', {
+        event_category: 'lead',
+        event_label: 'Application Form',
+      })
 
       setState('success')
     } catch {
