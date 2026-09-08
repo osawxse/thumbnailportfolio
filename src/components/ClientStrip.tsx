@@ -16,10 +16,6 @@ export function ClientStrip({ clients }: { clients: Client[] }) {
           <span className="mono">
             Trusted by creators & brands
           </span>
-
-          <span className="text-sm text-[var(--muted)]">
-            {clients.length ? 'Selected collaborators' : 'Add clients in Admin'}
-          </span>
         </div>
 
         {/* Scrolling clients */}

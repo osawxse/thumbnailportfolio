@@ -6,7 +6,7 @@ const steps = [
     number: '01',
     title: 'Consulting',
     description:
-      'We discuss the video idea and the target audience. As much information as possible to create a brief that summarizes the video well.',
+      'We discuss the video idea. As much information as possible to create a brief that summarizes the video well.',
     image: '/process/consulting.jpg',
     alt: 'Consulting and thumbnail strategy',
   },
