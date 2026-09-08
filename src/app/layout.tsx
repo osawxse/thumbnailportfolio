@@ -9,6 +9,8 @@ import Script from 'next/script'
    Individual pages can override them with their own metadata.
 */
 export const metadata: Metadata = {
+  metadataBase: new URL('https://closethoodie.vercel.app'),
+
   title: 'Thumbnail Designer',
   description: 'Professional YouTube thumbnail design.',
   icons: {
