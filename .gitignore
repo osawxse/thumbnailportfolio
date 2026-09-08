@@ -6,3 +6,6 @@ data/
 src/data/
 public/media/*
 !public/media/.gitkeep
+.vercel
+
+.env.production.local
