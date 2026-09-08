@@ -10,6 +10,7 @@
     "lint": "next lint",
     "typecheck": "tsc --noEmit",
     "seed": "tsx src/lib/seed.ts",
+    "payload": "payload",
     "generate:types": "payload generate:types",
     "generate:importmap": "payload generate:importmap"
   },
@@ -30,7 +31,7 @@
     "react-dom": "19.1.1",
     "resend": "^6.1.0",
     "sharp": "^0.34.3",
-    "tailwind-merge": "^3.3.1",
+    "tailwind-merge": "^3.3.3",
     "zod": "^4.1.5"
   },
   "devDependencies": {
