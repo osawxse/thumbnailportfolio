@@ -262,7 +262,7 @@ export interface Application {
   service: 'Consulting' | 'Ideation' | 'Thumbnail Design' | 'Full Packaging' | 'Other';
   projectDescription: string;
   monthlyVideoVolume?: string | null;
-  budget?: ('Under $250' | '$250–$500' | '$500–$1,000' | '$1,000–$2,500' | '$2,500+') | null;
+  budget?: ('Under $50' | '$50–$100' | '$100–$250' | '$250+') | null;
   desiredStartDate?: string | null;
   additionalInfo?: string | null;
   status: 'New' | 'Reviewing' | 'Accepted' | 'Rejected' | 'Archived';
